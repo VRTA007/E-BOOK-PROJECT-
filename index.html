@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Automatisé avec l'IA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-links">
+                <a href="index.html" class="active">Accueil</a>
+                <a href="introduction.html">Introduction</a>
+                <a href="auteur.html">À propos</a>
+                <a href="chapitre1.html">Bolt New</a>
+                <a href="chapitre2.html">Cursor</a>
+                <a href="chapitre3.html">Zapier</a>
+                <a href="chapitre4.html">Clients</a>
+                <a href="chapitre5.html">Conclusion</a>
+            </div>
+        </nav>
+        
+        <main class="hero">
+            <h1 class="main-title">
+                <span class="highlight">Créez votre business</span><br>
+                100% automatisé avec l'IA
+            </h1>
+
+            <div class="cta-section">
+                <button class="cta-btn" onclick="window.location.href='introduction.html'">
+                    Lance-toi maintenant
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <p class="cta-text">Déjà plus de 60 entrepreneurs accompagnés</p>
+            </div>
+
+            <div class="benefits">
+                <div class="benefit-card">
+                    <div class="benefit-number">01</div>
+                    <h3>Intelligence Artificielle</h3>
+                    <p>Découvrez 3 IA révolutionnaires qui vont transformer votre façon de travailler</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-number">02</div>
+                    <h3>Acquisition Client</h3>
+                    <p>Apprenez à trouver et convertir vos clients idéaux de manière automatisée</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-number">03</div>
+                    <h3>Automatisation</h3>
+                    <p>Mettez en place un système qui fonctionne 24/7 sans votre présence</p>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="scroll-arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Définir l'ordre des pages
+        const pageOrder = [
+            'index.html',
+            'introduction.html',
+            'auteur.html',
+            'chapitre1.html',
+            'chapitre2.html',
+            'chapitre3.html',
+            'chapitre4.html',
+            'chapitre5.html'
+        ];
+
+        // Fonction pour obtenir la page suivante
+        function getNextPage() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const currentIndex = pageOrder.indexOf(currentPage);
+            if (currentIndex < pageOrder.length - 1) {
+                return pageOrder[currentIndex + 1];
+            }
+            return pageOrder[0];
+        }
+
+        // Ajouter l'événement de clic
+        document.querySelector('.scroll-arrow').addEventListener('click', () => {
+            window.location.href = getNextPage();
+        });
+    </script>
+</body>
+</html> 

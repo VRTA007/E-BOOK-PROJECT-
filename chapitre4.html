@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 4 - Trouver des Clients</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="introduction.html">Introduction</a>
+                <a href="auteur.html">À propos</a>
+                <a href="chapitre1.html">Bolt New</a>
+                <a href="chapitre2.html">Cursor</a>
+                <a href="chapitre3.html">Zapier</a>
+                <a href="chapitre4.html" class="active">Clients</a>
+                <a href="chapitre5.html">Conclusion</a>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <h1>Comment trouver des clients ?</h1>
+            
+            <div class="chapter-content">
+                <section>
+                    <h2><i class="fas fa-spider"></i> Le scrapping de données</h2>
+                    <p>Le scrapping consiste à collecter des données disponibles sur le web. Voici les outils essentiels :</p>
+
+                    <div class="feature-box">
+                        <ul>
+                            <li>
+                                <i class="fab fa-linkedin"></i>
+                                <strong>PhantomBuster :</strong> 
+                                <p>Récupère des listes de contacts LinkedIn ou Instagram.</p>
+                            </li>
+                            <li>
+                                <i class="fas fa-code"></i>
+                                <strong>Octoparse :</strong>
+                                <p>Outil no-code pour scrapper des informations depuis des annuaires en ligne.</p>
+                            </li>
+                            <li>
+                                <i class="fas fa-at"></i>
+                                <strong>Hunter.io :</strong>
+                                <p>Trouve les emails professionnels associés à des noms de domaines.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2><i class="fas fa-paper-plane"></i> Envoyer des emails automatisés avec Zapier</h2>
+                    
+                    <div class="tip-box">
+                        <h3>💡 Processus d'automatisation</h3>
+                        <ol>
+                            <li>
+                                <strong>Collectez des données :</strong>
+                                <p>Scrappez les informations (emails, noms) de prospects.</p>
+                            </li>
+                            <li>
+                                <strong>Automatisez les emails :</strong>
+                                <p>Créez un workflow Zapier pour envoyer un email dès qu'un contact est ajouté à votre liste.</p>
+                            </li>
+                            <li>
+                                <strong>Ajoutez des relances :</strong>
+                                <p>Configurez des relances automatiques pour ceux qui ne répondent pas.</p>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h3>⚠️ Points importants</h3>
+                        <ul>
+                            <li>Respectez toujours les règles RGPD lors de la collecte de données</li>
+                            <li>Personnalisez vos emails pour éviter d'être marqué comme spam</li>
+                            <li>Testez différents messages pour optimiser vos taux de réponse</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <div class="scroll-indicator">
+                <p>Chapitre suivant : Conclusion</p>
+                <div class="scroll-arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.querySelector('.scroll-arrow').addEventListener('click', () => {
+            window.location.href = 'chapitre5.html';
+        });
+    </script>
+</body>
+</html> 
