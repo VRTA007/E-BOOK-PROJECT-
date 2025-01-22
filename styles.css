@@ -63,6 +63,54 @@ nav:after {
     flex-wrap: wrap;
 }
 
+/* Styles pour les liens floutés */
+.nav-links a[href*="chapitre1.html"],
+.nav-links a[href*="chapitre2.html"],
+.nav-links a[href*="chapitre3.html"],
+.nav-links a[href*="chapitre4.html"],
+.nav-links a[href*="chapitre5.html"] {
+    filter: blur(3px);
+    transition: filter 0.3s ease;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Suppression du style actif pour les liens protégés */
+.nav-links a[href*="chapitre1.html"].active,
+.nav-links a[href*="chapitre2.html"].active,
+.nav-links a[href*="chapitre3.html"].active,
+.nav-links a[href*="chapitre4.html"].active,
+.nav-links a[href*="chapitre5.html"].active {
+    background: #edf2f7;
+    color: #666;
+    filter: blur(3px);
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Style actif uniquement pour les liens non protégés */
+.nav-links a:not([href*="chapitre1.html"]):not([href*="chapitre2.html"]):not([href*="chapitre3.html"]):not([href*="chapitre4.html"]):not([href*="chapitre5.html"]).active {
+    background: #1a1a1a;
+    color: white;
+    font-weight: 600;
+}
+
+/* Style pour le contenu débloqué */
+body.content-unlocked .nav-links a[href*="chapitre1.html"],
+body.content-unlocked .nav-links a[href*="chapitre2.html"],
+body.content-unlocked .nav-links a[href*="chapitre3.html"],
+body.content-unlocked .nav-links a[href*="chapitre4.html"],
+body.content-unlocked .nav-links a[href*="chapitre5.html"],
+body.content-unlocked .nav-links a[href*="chapitre1.html"].active,
+body.content-unlocked .nav-links a[href*="chapitre2.html"].active,
+body.content-unlocked .nav-links a[href*="chapitre3.html"].active,
+body.content-unlocked .nav-links a[href*="chapitre4.html"].active,
+body.content-unlocked .nav-links a[href*="chapitre5.html"].active {
+    filter: none;
+    pointer-events: auto;
+    opacity: 1;
+}
+
 nav a {
     color: #666;
     text-decoration: none;
@@ -342,4 +390,61 @@ li {
         padding: 10px 20px;
         font-size: 0.95rem;
     }
+}
+
+/* Style pour les pages protégées */
+.blur-content {
+    filter: blur(8px);
+    opacity: 0.7;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Style pour les liens protégés dans la navigation */
+nav a.blur-link {
+    filter: blur(3px);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Pages spécifiques à protéger */
+body[data-page="bolt"] .content,
+body[data-page="zapier"] .content,
+body[data-page="client"] .content,
+body[data-page="conclusion"] .content {
+    filter: blur(8px);
+    opacity: 0.7;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Cache l'interface de paiement par défaut */
+.payment-wall, .payment-interface {
+    display: none;
+}
+
+/* Affiche l'interface de paiement uniquement sur la page Bolt */
+body[data-page="bolt"] .payment-wall {
+    display: block;
+}
+
+/* Styles pour le contenu flouté */
+.protected-content {
+    filter: blur(5px);
+    pointer-events: none;
+    opacity: 0.7;
+    user-select: none;
+}
+
+.payment-wall {
+    position: relative;
+    z-index: 10;
+}
+
+/* Style pour le contenu débloqué */
+body.content-unlocked .protected-content {
+    filter: none;
+    pointer-events: auto;
+    opacity: 1;
+    user-select: auto;
 } 

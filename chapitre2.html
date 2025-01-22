@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapitre 2 - Cursor et l'Automatisation</title>
+    <title>Chapitre 2 - Business Automatisé avec l'IA</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="access.js"></script>
 </head>
 <body>
     <div class="container">
@@ -14,18 +15,47 @@
                 <a href="index.html">Accueil</a>
                 <a href="introduction.html">Introduction</a>
                 <a href="auteur.html">À propos</a>
-                <a href="chapitre1.html">Bolt New</a>
-                <a href="chapitre2.html" class="active">Cursor</a>
-                <a href="chapitre3.html">Zapier</a>
-                <a href="chapitre4.html">Clients</a>
-                <a href="chapitre5.html">Conclusion</a>
+                <a href="chapitre1.html" class="protected">Bolt New</a>
+                <a href="chapitre2.html" class="active protected">Cursor</a>
+                <a href="chapitre3.html" class="protected">Zapier</a>
+                <a href="chapitre4.html" class="protected">Clients</a>
+                <a href="chapitre5.html" class="protected">Conclusion</a>
             </div>
         </nav>
         
         <main class="content">
-            <h1>Développer le back-end et automatiser vos tâches avec Cursor</h1>
+            <h1 class="protected-content">Développer avec Cursor - L'IA qui code pour vous</h1>
             
-            <div class="chapter-content">
+            <div id="payment-wall" class="payment-wall">
+                <div class="payment-section">
+                    <h2>Accédez au contenu premium</h2>
+                    <p>Débloquez l'intégralité de l'ebook et découvrez tous nos secrets</p>
+                    <div class="price">10,00 €</div>
+                    
+                    <div class="payment-buttons">
+                        <button class="payment-button card" id="stripe-button">
+                            <i class="fas fa-credit-card"></i>
+                            Carte bancaire
+                        </button>
+                        <button class="payment-button paypal" id="paypal-button" disabled title="Bientôt disponible">
+                            <i class="fab fa-paypal"></i>
+                            PayPal (Bientôt)
+                        </button>
+                    </div>
+
+                    <div class="access-code-section">
+                        <p>Vous avez déjà acheté l'ebook ?</p>
+                        <div class="access-code-input-group">
+                            <input type="text" id="access-code" placeholder="Entrez votre code d'accès">
+                            <button onclick="validateAccessCode()">
+                                <i class="fas fa-unlock-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chapter-content protected-content">
                 <section>
                     <h2>Qu'est-ce que Cursor ?</h2>
                     <p>Cursor est une IA puissante qui aide à coder des fonctionnalités complexes comme un développeur professionnel. En souscrivant à un abonnement à 20€ par mois, vous aurez accès à :</p>
@@ -108,7 +138,7 @@
             </div>
 
             <div class="scroll-indicator">
-                <p>Chapitre suivant : L'automatisation avec Zapier</p>
+                <p>Chapitre suivant : Automatisation avec Zapier</p>
                 <div class="scroll-arrow">
                     <i class="fas fa-chevron-down"></i>
                 </div>
@@ -119,6 +149,20 @@
     <script>
         document.querySelector('.scroll-arrow').addEventListener('click', () => {
             window.location.href = 'chapitre3.html';
+        });
+
+        // Ajouter l'event listener pour le bouton Stripe
+        document.getElementById('stripe-button').addEventListener('click', () => {
+            fetch('/create-checkout-session', {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = data.url;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
     </script>
 </body>

@@ -6,6 +6,7 @@
     <title>Chapitre 1 - Business Automatisé avec l'IA</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="access.js"></script>
 </head>
 <body>
     <div class="container">
@@ -14,18 +15,47 @@
                 <a href="index.html">Accueil</a>
                 <a href="introduction.html">Introduction</a>
                 <a href="auteur.html">À propos</a>
-                <a href="chapitre1.html" class="active">Bolt New</a>
-                <a href="chapitre2.html">Cursor</a>
-                <a href="chapitre3.html">Zapier</a>
-                <a href="chapitre4.html">Clients</a>
-                <a href="chapitre5.html">Conclusion</a>
+                <a href="chapitre1.html" class="active protected">Bolt New</a>
+                <a href="chapitre2.html" class="protected">Cursor</a>
+                <a href="chapitre3.html" class="protected">Zapier</a>
+                <a href="chapitre4.html" class="protected">Clients</a>
+                <a href="chapitre5.html" class="protected">Conclusion</a>
             </div>
         </nav>
         
         <main class="content">
-            <h1>Création d'un site internet moderne avec l'IA – Présentation de Bolt New</h1>
+            <h1 class="protected-content">Création d'un site internet moderne avec l'IA – Présentation de Bolt New</h1>
             
-            <div class="chapter-content">
+            <div class="payment-interface">
+                <div class="payment-box">
+                    <h2>Accédez au contenu premium</h2>
+                    <p>Débloquez l'intégralité de l'ebook et découvrez tous nos secrets</p>
+                    <div class="price">10,00 €</div>
+                    
+                    <div class="payment-options">
+                        <button class="payment-btn stripe" id="stripe-button">
+                            <i class="fas fa-credit-card"></i>
+                            Carte bancaire
+                        </button>
+                        <button class="payment-btn paypal" disabled>
+                            <i class="fab fa-paypal"></i>
+                            PayPal (Bientôt)
+                        </button>
+                    </div>
+
+                    <div class="access-code">
+                        <p>Vous avez déjà acheté l'ebook ?</p>
+                        <div class="code-input">
+                            <input type="text" id="access-code" placeholder="Entrez votre code d'accès">
+                            <button onclick="validateAccessCode()">
+                                <i class="fas fa-unlock-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chapter-content protected-content">
                 <section>
                     <h2>Qu'est-ce que Bolt New ?</h2>
                     <p>Bolt New est une intelligence artificielle puissante qui se concentre sur la création de l'aspect visuel de votre site internet. Plus précisément, il s'agit de ce qu'on appelle le front-end, c'est-à-dire la partie visible par vos utilisateurs. <span class="highlight">En moins de 2 heures, vous pouvez créer un site professionnel que vous pourrez revendre facilement à partir de 300€</span>, et ce, sans avoir besoin de compétences en développement ou en design.</p>
@@ -112,6 +142,20 @@
     <script>
         document.querySelector('.scroll-arrow').addEventListener('click', () => {
             window.location.href = 'chapitre2.html';
+        });
+
+        // Ajouter l'event listener pour le bouton Stripe
+        document.getElementById('stripe-button').addEventListener('click', () => {
+            fetch('/create-checkout-session', {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = data.url;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
     </script>
 </body>

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapitre 3 - L'automatisation avec Zapier</title>
+    <title>Chapitre 3 - Business Automatisé avec l'IA</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="access.js"></script>
 </head>
 <body>
     <div class="container">
@@ -14,18 +15,47 @@
                 <a href="index.html">Accueil</a>
                 <a href="introduction.html">Introduction</a>
                 <a href="auteur.html">À propos</a>
-                <a href="chapitre1.html">Bolt New</a>
-                <a href="chapitre2.html">Cursor</a>
-                <a href="chapitre3.html" class="active">Zapier</a>
-                <a href="chapitre4.html">Clients</a>
-                <a href="chapitre5.html">Conclusion</a>
+                <a href="chapitre1.html" class="protected">Bolt New</a>
+                <a href="chapitre2.html" class="protected">Cursor</a>
+                <a href="chapitre3.html" class="active protected">Zapier</a>
+                <a href="chapitre4.html" class="protected">Clients</a>
+                <a href="chapitre5.html" class="protected">Conclusion</a>
             </div>
         </nav>
         
         <main class="content">
-            <h1>L'automatisation avec Zapier</h1>
+            <h1>Automatisation avec Zapier - Connectez vos outils</h1>
             
-            <div class="chapter-content">
+            <div id="payment-wall" class="payment-wall">
+                <div class="payment-section">
+                    <h2>Accédez au contenu premium</h2>
+                    <p>Débloquez l'intégralité de l'ebook et découvrez tous nos secrets</p>
+                    <div class="price">10,00 €</div>
+                    
+                    <div class="payment-buttons">
+                        <button class="payment-button card" id="stripe-button">
+                            <i class="fas fa-credit-card"></i>
+                            Carte bancaire
+                        </button>
+                        <button class="payment-button paypal" id="paypal-button" disabled title="Bientôt disponible">
+                            <i class="fab fa-paypal"></i>
+                            PayPal (Bientôt)
+                        </button>
+                    </div>
+
+                    <div class="access-code-section">
+                        <p>Vous avez déjà acheté l'ebook ?</p>
+                        <div class="access-code-input-group">
+                            <input type="text" id="access-code" placeholder="Entrez votre code d'accès">
+                            <button onclick="validateAccessCode()">
+                                <i class="fas fa-unlock-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chapter-content protected-content">
                 <section>
                     <h2>Qu'est-ce que Zapier ?</h2>
                     <p>Zapier est une <span class="highlight">plateforme d'automatisation puissante</span> qui connecte différentes applications pour qu'elles travaillent ensemble, sans intervention humaine. Cette solution <span class="highlight">no-code</span> permet d'automatiser des workflows complexes en quelques clics.</p>
@@ -111,20 +141,19 @@
                         </ul>
                     </div>
 
-                    <div class="tip-box">
-                        <h3>🚀 Conseils d'optimisation</h3>
-                        <ul>
-                            <li>Commencez par les processus les plus répétitifs</li>
-                            <li>Utilisez des filtres pour affiner vos automatisations</li>
-                            <li>Configurez des délais entre les actions si nécessaire</li>
-                            <li>Prévoyez des scénarios de secours</li>
-                        </ul>
-                    </div>
-                </section>
+                <div class="tip-box">
+                    <h3>🚀 Conseils d'optimisation</h3>
+                    <ul>
+                        <li>Commencez par les processus les plus répétitifs</li>
+                        <li>Utilisez des filtres pour affiner vos automatisations</li>
+                        <li>Configurez des délais entre les actions si nécessaire</li>
+                        <li>Prévoyez des scénarios de secours</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="scroll-indicator">
-                <p>À propos de l'auteur</p>
+                <p>Chapitre suivant : Acquisition de clients</p>
                 <div class="scroll-arrow">
                     <i class="fas fa-chevron-down"></i>
                 </div>
@@ -135,6 +164,20 @@
     <script>
         document.querySelector('.scroll-arrow').addEventListener('click', () => {
             window.location.href = 'chapitre4.html';
+        });
+
+        // Ajouter l'event listener pour le bouton Stripe
+        document.getElementById('stripe-button').addEventListener('click', () => {
+            fetch('/create-checkout-session', {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = data.url;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
     </script>
 </body>
