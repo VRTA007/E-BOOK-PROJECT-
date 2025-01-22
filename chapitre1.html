@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="access.js"></script>
 </head>
-<body>
+<body data-page="chapitre1">
     <div class="container">
         <nav>
             <div class="nav-links">
@@ -23,37 +23,31 @@
             </div>
         </nav>
         
-        <main class="content">
-            <h1 class="protected-content">Création d'un site internet moderne avec l'IA – Présentation de Bolt New</h1>
-            
-            <div class="payment-interface">
-                <div class="payment-box">
-                    <h2>Accédez au contenu premium</h2>
-                    <p>Débloquez l'intégralité de l'ebook et découvrez tous nos secrets</p>
-                    <div class="price">10,00 €</div>
-                    
-                    <div class="payment-options">
-                        <button class="payment-btn stripe" id="stripe-button">
-                            <i class="fas fa-credit-card"></i>
-                            Carte bancaire
-                        </button>
-                        <button class="payment-btn paypal" disabled>
-                            <i class="fab fa-paypal"></i>
-                            PayPal (Bientôt)
-                        </button>
-                    </div>
+        <div class="payment-interface">
+            <div class="payment-box">
+                <h2>Accédez au contenu premium</h2>
+                <p>Débloquez l'intégralité de l'ebook et découvrez tous nos secrets</p>
+                <div class="price">10,00 €</div>
+                
+                <button id="stripe-button" class="payment-button">
+                    <i class="fas fa-credit-card"></i>
+                    Carte bancaire
+                </button>
 
-                    <div class="access-code">
-                        <p>Vous avez déjà acheté l'ebook ?</p>
-                        <div class="code-input">
-                            <input type="text" id="access-code" placeholder="Entrez votre code d'accès">
-                            <button onclick="validateAccessCode()">
-                                <i class="fas fa-unlock-alt"></i>
-                            </button>
-                        </div>
+                <div class="access-code-section">
+                    <p>Vous avez déjà acheté l'ebook ?</p>
+                    <div class="code-input">
+                        <input type="text" id="access-code" placeholder="Entrez votre code d'accès">
+                        <button onclick="validateAccessCode()">
+                            <i class="fas fa-unlock-alt"></i>
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <main class="content">
+            <h1 class="protected-content">Création d'un site internet moderne avec l'IA – Présentation de Bolt New</h1>
             
             <div class="chapter-content protected-content">
                 <section>
@@ -129,31 +123,49 @@
                     <p>Bien que Bolt New ait certaines limites techniques (pas de gestion de base de données complexe, fonctionnalités avancées limitées), ces restrictions n'impactent pas votre capacité à créer et vendre rapidement des sites attractifs. Pour les projets nécessitant des fonctionnalités plus avancées, vous pourrez facilement augmenter vos tarifs et utiliser Cursor (voir chapitre suivant) en complément.</p>
                 </div>
             </div>
-
-            <div class="scroll-indicator">
-                <p>Chapitre suivant : Développer avec Cursor</p>
-                <div class="scroll-arrow">
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-            </div>
         </main>
+
+        <div class="scroll-indicator">
+            <p>Chapitre suivant : Développer avec Cursor</p>
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
     </div>
 
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://connect.bolt.com/checkout-1.js"></script>
     <script>
         document.querySelector('.scroll-arrow').addEventListener('click', () => {
             window.location.href = 'chapitre2.html';
         });
 
-        // Ajouter l'event listener pour le bouton Stripe
-        document.getElementById('stripe-button').addEventListener('click', () => {
+        document.getElementById('stripe-button').addEventListener('click', function() {
             fetch('/create-checkout-session', {
                 method: 'POST',
             })
-            .then(response => response.json())
-            .then(data => {
-                window.location.href = data.url;
+            .then(function(response) {
+                return response.json();
             })
-            .catch(error => {
+            .then(function(session) {
+                window.location = session.url;
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+        });
+
+        document.getElementById('bolt-button').addEventListener('click', function() {
+            fetch('/create-bolt-transaction', {
+                method: 'POST',
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(transaction) {
+                window.location = transaction.url;
+            })
+            .catch(function(error) {
                 console.error('Error:', error);
             });
         });

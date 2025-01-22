@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement réussi - Business Automatisé avec l'IA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="access.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="success-content" style="text-align: center; padding: 50px 20px;">
+            <i class="fas fa-check-circle" style="font-size: 64px; color: #4facfe; margin-bottom: 30px;"></i>
+            <h1>Paiement réussi !</h1>
+            <p style="font-size: 1.2rem; margin: 20px 0;">Voici votre code d'accès :</p>
+            <p style="font-size: 1.1rem; margin: 20px 0;">
+                <strong id="access-code" style="background: #f8f9fa; padding: 10px 20px; border-radius: 5px; display: inline-block; font-size: 1.4rem; letter-spacing: 2px;"></strong>
+            </p>
+            <div style="margin: 30px 0; padding: 20px; background: #fff3cd; border-radius: 10px;">
+                <p style="color: #856404; margin: 0;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Important : Conservez ce code précieusement. Vous en aurez besoin pour accéder au contenu.
+                </p>
+            </div>
+            <a href="chapitre1.html" class="cta-button" style="display: inline-block; margin-top: 30px;">
+                <i class="fas fa-lock-open"></i>
+                Retourner à l'ebook
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Récupérer l'ID de session Stripe depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+
+        if (sessionId) {
+            // Récupérer le code d'accès
+            fetch(`/get-access-code/${sessionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code) {
+                        document.getElementById('access-code').textContent = data.code;
+                        // Stocker le code dans le localStorage pour un accès immédiat
+                        localStorage.setItem('accessCode', data.code);
+                        // Marquer comme débloqué globalement
+                        localStorage.setItem('hasAccess', 'true');
+                        // Débloquer le contenu
+                        unlockAllContent();
+                    } else {
+                        document.getElementById('access-code').textContent = 'Erreur lors de la récupération du code';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('access-code').textContent = 'Erreur lors de la récupération du code';
+                });
+        } else {
+            document.getElementById('access-code').textContent = 'ID de session manquant';
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,28 @@
+{
+  "name": "ebook-business-ia",
+  "version": "1.0.0",
+  "description": "Ebook sur l'automatisation business avec l'IA",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "stripe": "^14.25.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VRTA007/E-BOOK-PROJECT-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VRTA007/E-BOOK-PROJECT-/issues"
+  },
+  "homepage": "https://github.com/VRTA007/E-BOOK-PROJECT-#readme"
+}

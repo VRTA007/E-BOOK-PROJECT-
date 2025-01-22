@@ -63,7 +63,7 @@ nav:after {
     flex-wrap: wrap;
 }
 
-/* Styles pour les liens floutés */
+/* Styles pour les liens floutés - uniquement pour les chapitres */
 .nav-links a[href*="chapitre1.html"],
 .nav-links a[href*="chapitre2.html"],
 .nav-links a[href*="chapitre3.html"],
@@ -75,7 +75,7 @@ nav:after {
     opacity: 0.7;
 }
 
-/* Suppression du style actif pour les liens protégés */
+/* Suppression du style actif pour les liens protégés - uniquement pour les chapitres */
 .nav-links a[href*="chapitre1.html"].active,
 .nav-links a[href*="chapitre2.html"].active,
 .nav-links a[href*="chapitre3.html"].active,
@@ -88,11 +88,23 @@ nav:after {
     opacity: 0.7;
 }
 
-/* Style actif uniquement pour les liens non protégés */
-.nav-links a:not([href*="chapitre1.html"]):not([href*="chapitre2.html"]):not([href*="chapitre3.html"]):not([href*="chapitre4.html"]):not([href*="chapitre5.html"]).active {
+/* Style actif pour tous les liens non-chapitres */
+.nav-links a:not([href*="chapitre"]).active {
     background: #1a1a1a;
     color: white;
     font-weight: 600;
+    filter: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* Assurer que les pages introduction et à propos ne sont jamais floutées */
+.nav-links a[href="introduction.html"],
+.nav-links a[href="auteur.html"],
+.nav-links a[href="index.html"] {
+    filter: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
 }
 
 /* Style pour le contenu débloqué */
@@ -392,8 +404,15 @@ li {
     }
 }
 
-/* Style pour les pages protégées */
+/* Style pour les pages protégées - uniquement pour les chapitres */
 .blur-content {
+    filter: none;
+    opacity: 1;
+    pointer-events: auto;
+    user-select: auto;
+}
+
+body[data-page^="chapitre"] .blur-content {
     filter: blur(8px);
     opacity: 0.7;
     pointer-events: none;
@@ -402,49 +421,162 @@ li {
 
 /* Style pour les liens protégés dans la navigation */
 nav a.blur-link {
-    filter: blur(3px);
-    opacity: 0.7;
-    pointer-events: none;
+    filter: none;
+    opacity: 1;
+    pointer-events: auto;
 }
 
-/* Pages spécifiques à protéger */
-body[data-page="bolt"] .content,
-body[data-page="zapier"] .content,
-body[data-page="client"] .content,
-body[data-page="conclusion"] .content {
+/* Pages spécifiques à protéger - uniquement les chapitres */
+body[data-page^="chapitre"] main.content {
     filter: blur(8px);
     opacity: 0.7;
     pointer-events: none;
     user-select: none;
 }
 
-/* Cache l'interface de paiement par défaut */
-.payment-wall, .payment-interface {
-    display: none;
-}
-
-/* Affiche l'interface de paiement uniquement sur la page Bolt */
-body[data-page="bolt"] .payment-wall {
-    display: block;
-}
-
-/* Styles pour le contenu flouté */
-.protected-content {
+/* Styles pour le contenu protégé */
+.protected-content, 
+.chapter-content {
     filter: blur(5px);
-    pointer-events: none;
     opacity: 0.7;
+    pointer-events: none;
     user-select: none;
 }
 
-.payment-wall {
-    position: relative;
-    z-index: 10;
+/* Style pour les liens protégés dans la navigation */
+.nav-links a[href*="chapitre"].protected {
+    filter: blur(3px);
+    opacity: 0.7;
+    pointer-events: none;
 }
 
 /* Style pour le contenu débloqué */
-body.content-unlocked .protected-content {
-    filter: none;
-    pointer-events: auto;
-    opacity: 1;
-    user-select: auto;
+body.content-unlocked .protected-content,
+body.content-unlocked .chapter-content,
+body.content-unlocked .nav-links a[href*="chapitre"].protected,
+body.content-unlocked main.content {
+    filter: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    user-select: auto !important;
+}
+
+/* Assurer que les pages introduction et à propos sont toujours visibles */
+body[data-page="introduction"] .content,
+body[data-page="introduction"] .chapter-content,
+body[data-page="auteur"] .content,
+body[data-page="auteur"] .chapter-content,
+body[data-page="index"] .content {
+    filter: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    user-select: auto !important;
+}
+
+/* Interface de paiement uniquement sur la page Bolt */
+.payment-interface {
+    display: none;
+    position: relative;
+    z-index: 1000;
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    opacity: 1 !important;
+    filter: none !important;
+    pointer-events: auto !important;
+    user-select: auto !important;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+body[data-page="chapitre1"] .payment-interface {
+    display: block;
+}
+
+.payment-box h2 {
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    margin: 1.5rem 0;
+}
+
+.payment-button {
+    background: linear-gradient(120deg, #00f2fe, #4facfe);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 1rem 0;
+    transition: transform 0.2s;
+}
+
+.payment-button:hover {
+    transform: translateY(-2px);
+}
+
+.access-code-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.code-input {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.code-input input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.code-input button {
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.code-input button:hover {
+    background: #333;
+}
+
+/* Cacher l'interface de paiement quand le contenu est débloqué */
+body.content-unlocked .payment-interface {
+    display: none !important;
+}
+
+/* Scroll indicator toujours visible */
+.scroll-indicator {
+    z-index: 2;
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
 } 
